@@ -1,0 +1,13 @@
+﻿@page
+@model Claswork_ASP_APP.Pages.InputModelPageModel
+@{
+}
+
+<div>
+	<form method="post">
+		<input type="text" asp-for="Input.Name"></input>
+		<button type="submit" asp-page-handler="Save">Send</button>
+		<button type="submit" asp-page-handler="Delete">Delete</button>
+	</form>
+	<h1>Hello,@Model.Input.Name</h1>
+</div>

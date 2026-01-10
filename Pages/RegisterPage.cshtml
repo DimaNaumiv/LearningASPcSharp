@@ -1,0 +1,40 @@
+﻿@page
+@model Claswork_ASP_APP.Pages.RegisterPageModel
+@{
+}
+<div>
+	<h1>Registration</h1>
+	<h4>@Model.Error</h4>
+	<form method="post">
+		<p>Input your first name:</p>
+		<input type="text" asp-for="Profile.FirstName"></input>
+		<p>Input your last name:</p>
+		<input type="text" asp-for="Profile.LastName"></input>
+		<p>Input your email:</p>
+		<input type="text" asp-for="Profile.Email"></input>
+		<p>Input your phone number:</p>
+		<input type="text" asp-for="Profile.PhoneNumber"></input>
+		<p>Input your gender:</p>
+		<select asp-for="Profile.Gender">
+			<option value="men">men</option>
+			<option value="women">women</option>
+		</select>
+
+		<p>Input your birth date:</p>
+		<input type="text" asp-for="Profile.BirthDate"></input>
+		<p>Input your country:</p>
+		<input type="text" asp-for="Profile.Country"></input>
+		<p>Input your city:</p>
+		<input type="text" asp-for="Profile.City"></input>
+		<p>Input your about me:</p>
+		<input type="text" asp-for="Profile.AboutMe"></input>
+		<p>Input your LinkedInUrl:</p>
+		<input type="text" asp-for="Profile.LinkedInUrl"></input>
+		<p>Input your is open to work:</p>
+		<input type="checkbox" asp-for="Profile.IsOpenToWork"></input>
+
+		<button type="submit" asp-page-handler="Save">Save</button>
+		<button type="submit" asp-page-handler="Delete">Delete</button>
+	</form>
+	<h2>@Model.Succses</h2>
+</div>

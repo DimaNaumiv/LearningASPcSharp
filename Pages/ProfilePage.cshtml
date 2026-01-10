@@ -1,0 +1,17 @@
+﻿@page
+@model Claswork_ASP_APP.Pages.ProfilePageModel
+@{
+}
+<div>
+	<h1>@Model.Message</h1>
+	<h2>user name: @Model.Profile.FirstName @Model.Profile.LastName</h2>
+	<h2>birth day: @Model.Profile.BirthDate</h2>
+	<h2>about me: @Model.Profile.AboutMe</h2>
+	<h2>gender: @Model.Profile.Gender</h2>
+	<h3>email: @Model.Profile.Email</h3>
+	<h3>phone number: @Model.Profile.PhoneNumber</h3>
+	<h3>country: @Model.Profile.Country</h3>
+	<h3>city: @Model.Profile.City</h3>
+	<h3>LinkedInUri: @Model.Profile.LinkedInUrl</h3>
+	<h3>open to work: @Model.Profile.IsOpenToWork</h3>
+</div>
