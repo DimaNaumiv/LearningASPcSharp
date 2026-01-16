@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Claswork_ASP_APP.MyClasses;
+using Copy_Classwork_APS_APP.DAL.Models;
+using Copy_Classwork_APS_APP.DAL;
+using Copy_Classwork_APS_APP.DAL.Interfaces;
 
 namespace Claswork_ASP_APP.Pages
 {
     public class RegisterPageModel : PageModel
     {
+		private ProfileInterface _profileInterface;
 		[BindProperty]
 		public Profile Profile { get; set; }
 		public string Succses { get; set; }
@@ -128,18 +132,43 @@ namespace Claswork_ASP_APP.Pages
 			Profile.LinkedInUrl = "";
 			Profile.IsOpenToWork = false;
 		}
+		private void voidAdder()
+		{
+			if (Profile.City == null)
+			{
+				Profile.City = "null";
+			}
+			if(Profile.Country == null)
+			{
+				Profile.Country = "null";
+			}
+			if(Profile.AboutMe == null)
+			{
+				Profile.AboutMe = "null";
+			}
+			if(Profile.BirthDate == null)
+			{
+				Profile.BirthDate = "null";
+			}
+			if(Profile.LinkedInUrl == null)
+			{
+				Profile.LinkedInUrl = "null";
+			}
+		}
 
-        public void OnPostSave()
+		public RegisterPageModel(ProfileInterface profileInterface)
+		{
+			_profileInterface = profileInterface;
+		}
+
+		public void OnPostSave()
         {
 			if(ErrorChecher() == false)
 			{
 				return;
 			}
-            using (StreamWriter sw = new StreamWriter("profile.txt"))
-            {
-				string text = $"{Profile.FirstName.ToString()} {Profile.LastName.ToString()} {Profile.Email.ToString()} {Profile.PhoneNumber.ToString()} {Profile.Gender.ToString()} ";
-				sw.Write(TextAdder(text));
-			}
+			voidAdder();
+			_profileInterface.AddProfile(Profile);
 			Succses = "Succses";
         }
         public void OnPostDelete()

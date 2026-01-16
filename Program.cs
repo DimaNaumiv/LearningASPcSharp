@@ -1,3 +1,7 @@
+using Copy_Classwork_APS_APP.DAL;
+using Copy_Classwork_APS_APP.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 namespace Claswork_ASP_APP
 {
     public class Program
@@ -8,6 +12,10 @@ namespace Claswork_ASP_APP
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<ProfileInterface,ProfileRepository>();
+            builder.Services.AddScoped<IBookShopRepository, BookShopRepository>();
 
             var app = builder.Build();
 

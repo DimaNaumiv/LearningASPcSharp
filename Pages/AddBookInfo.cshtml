@@ -1,0 +1,35 @@
+﻿@page
+@model Claswork_ASP_APP.Pages.AddBookInfoModel
+@{
+}
+<div>
+	<form  method="post">
+		<select asp-for="window_type">
+			<option value="Author">Author</option>
+			<option value="Book">Book</option>
+		</select>
+		<button type="submit" asp-page-handler="Confirm">Confirm</button>
+		<h1>@Model.Error</h1>
+
+		<h2>@Model.questions.Task1</h2>
+		<input type="text" asp-for="avthorBook.AFirstName_BTitle"></input>
+		<h2>@Model.questions.Task2</h2>
+		<input type="text" asp-for="avthorBook.ALastName_BISBN"></input>
+		<h2>@Model.questions.Task3</h2>
+		<input type="number" asp-for="avthorBook.ABirthDate_BPublishedYear"></input>
+		<h2>@Model.questions.Task4</h2>
+		<input type="number" asp-for="avthorBook.BPrice"></input>
+		<h2>@Model.questions.Task5</h2>
+		<select asp-for="avthorBook.AId">
+			@if (Model.bookShop.GetAllAuthors().Count() != 0)
+			{
+				foreach(var i in Model.bookShop.GetAllAuthors())
+				{
+					<option value="@i.Id">@i.FirstName @i.LastName</option>
+				}
+			}
+		</select>
+
+		<button type="submit" asp-page-handler="Save">Save</button>
+	</form>
+</div>
