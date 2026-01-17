@@ -12,11 +12,11 @@
 		<h1>@Model.Error</h1>
 
 		<h2>@Model.questions.Task1</h2>
-		<input type="text" asp-for="avthorBook.AFirstName_BTitle"></input>
+		<input required type="text" asp-for="avthorBook.AFirstName_BTitle"></input>
 		<h2>@Model.questions.Task2</h2>
-		<input type="text" asp-for="avthorBook.ALastName_BISBN"></input>
+		<input required min="5" type="text" asp-for="avthorBook.ALastName_BISBN"></input>
 		<h2>@Model.questions.Task3</h2>
-		<input type="number" asp-for="avthorBook.ABirthDate_BPublishedYear"></input>
+		<input required type="number" asp-for="avthorBook.ABirthDate_BPublishedYear"></input>
 		@if(Model.window_type == "Book")
 		{
 			<h2>@Model.questions.Task4</h2>
