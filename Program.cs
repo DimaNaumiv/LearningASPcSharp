@@ -1,5 +1,7 @@
+using Claswork_ASP_APP.Serves;
 using Copy_Classwork_APS_APP.DAL;
 using Copy_Classwork_APS_APP.DAL.Interfaces;
+using Copy_Classwork_APS_APP.DAL.Repositiores;
 using Microsoft.EntityFrameworkCore;
 
 namespace Claswork_ASP_APP
@@ -15,9 +17,11 @@ namespace Claswork_ASP_APP
 
             builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<ProfileInterface,ProfileRepository>();
-            builder.Services.AddScoped<IBookShopRepository, BookShopRepository>();
+			builder.Services.AddScoped<IProfileServis, ProfileServis>();
+			builder.Services.AddScoped<IBookShopRepository, BookShopRepository>();
+			builder.Services.AddScoped<IBookShopServes, BookShopServes>();
 
-            var app = builder.Build();
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

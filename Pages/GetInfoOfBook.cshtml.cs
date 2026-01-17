@@ -1,4 +1,5 @@
 using Claswork_ASP_APP.MyClasses;
+using Claswork_ASP_APP.Serves;
 using Copy_Classwork_APS_APP.DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,22 +15,13 @@ namespace Claswork_ASP_APP.Pages
         public string Title { get; set; }
 		[BindProperty]
 		public string Input_text { get; set; }
-        public IBookShopRepository bookShop { get; set; }
-        public List<AuthorBook> avtorBook { get; set; }
-        public GetInfoOfBookModel(IBookShopRepository _bookShop)
+		private IBookShopServes _bookServes;
+		public List<AuthorBook> avtorBook { get; set; }
+        public GetInfoOfBookModel(IBookShopServes bookShopServes)
         {
-            bookShop = _bookShop;
+			_bookServes = bookShopServes;
 			avtorBook = new List<AuthorBook>();
-			foreach (var i in bookShop.GetAllBooks())
-			{
-				AuthorBook ab = new AuthorBook();
-				ab.AFirstName_BTitle = i.Title;
-				ab.ALastName_BISBN = i.ISBN;
-				ab.ABirthDate_BPublishedYear = i.PublisherYear;
-				ab.BPrice = i.Price;
-				ab.AId = i.Id;
-				avtorBook.Add(ab);
-			}
+			avtorBook = _bookServes.GetAllBooks();
 		}
         [BindProperty]
         public string sortType { get; set; }
@@ -41,15 +33,7 @@ namespace Claswork_ASP_APP.Pages
 				{
 					avtorBook.Clear();
 				}
-				foreach (var i in bookShop.GetAllAuthors())
-				{
-					AuthorBook ab = new AuthorBook();
-					ab.AFirstName_BTitle = i.FirstName;
-					ab.ALastName_BISBN = i.LastName;
-					ab.ABirthDate_BPublishedYear = i.BirthDate;
-					ab.AId = i.Id;
-					avtorBook.Add(ab);
-				}
+				avtorBook = _bookServes.GetAllAuthors();
 
 			}
 			else
@@ -58,16 +42,7 @@ namespace Claswork_ASP_APP.Pages
 				{
 					avtorBook.Clear();
 				}
-				foreach (var i in bookShop.GetAllBooks())
-				{
-					AuthorBook ab = new AuthorBook();
-					ab.AFirstName_BTitle = i.Title;
-					ab.ALastName_BISBN = i.ISBN;
-					ab.ABirthDate_BPublishedYear = i.PublisherYear;
-					ab.BPrice = i.Price;
-					ab.AId = i.Id;
-					avtorBook.Add(ab);
-				}
+				avtorBook = _bookServes.GetAllBooks();
 			}
 		}
         public void OnPostConfirm()

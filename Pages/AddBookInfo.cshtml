@@ -21,11 +21,11 @@
 		<input type="number" asp-for="avthorBook.BPrice"></input>
 		<h2>@Model.questions.Task5</h2>
 		<select asp-for="avthorBook.AId">
-			@if (Model.bookShop.GetAllAuthors().Count() != 0)
+			@if (Model._bookServes.GetAllAuthors().Count() != 0)
 			{
-				foreach(var i in Model.bookShop.GetAllAuthors())
+				foreach(var i in Model._bookServes.GetAllAuthors())
 				{
-					<option value="@i.Id">@i.FirstName @i.LastName</option>
+					<option value="@i.AId">@i.AFirstName_BTitle @i.ALastName_BISBN</option>
 				}
 			}
 		</select>

@@ -1,19 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Claswork_ASP_APP.MyClasses;
-using Copy_Classwork_APS_APP.DAL.Models;
 using Copy_Classwork_APS_APP.DAL;
 using Copy_Classwork_APS_APP.DAL.Interfaces;
+using Claswork_ASP_APP.Serves;
 
 namespace Claswork_ASP_APP.Pages
 {
     public class RegisterPageModel : PageModel
     {
-		private ProfileInterface _profileInterface;
 		[BindProperty]
-		public Profile Profile { get; set; }
+		public ProfileDTO Profile { get; set; }
 		public string Succses { get; set; }
 		public string Error { get; set; }
+		private IProfileServis _profileServis;
 
 		private bool ErrorChecher()
 		{
@@ -132,43 +132,20 @@ namespace Claswork_ASP_APP.Pages
 			Profile.LinkedInUrl = "";
 			Profile.IsOpenToWork = false;
 		}
-		private void voidAdder()
-		{
-			if (Profile.City == null)
-			{
-				Profile.City = "null";
-			}
-			if(Profile.Country == null)
-			{
-				Profile.Country = "null";
-			}
-			if(Profile.AboutMe == null)
-			{
-				Profile.AboutMe = "null";
-			}
-			if(Profile.BirthDate == null)
-			{
-				Profile.BirthDate = "null";
-			}
-			if(Profile.LinkedInUrl == null)
-			{
-				Profile.LinkedInUrl = "null";
-			}
-		}
+		
 
-		public RegisterPageModel(ProfileInterface profileInterface)
+		public RegisterPageModel(IProfileServis profileServis)
 		{
-			_profileInterface = profileInterface;
+			_profileServis = profileServis;
 		}
 
 		public void OnPostSave()
         {
-			if(ErrorChecher() == false)
+			if (ModelState.IsValid)
 			{
 				return;
 			}
-			voidAdder();
-			_profileInterface.AddProfile(Profile);
+			_profileServis.Save(Profile);
 			Succses = "Succses";
         }
         public void OnPostDelete()
@@ -181,7 +158,7 @@ namespace Claswork_ASP_APP.Pages
 
         public void OnGet()
         {
-            Profile = new Profile();
+            Profile = new ProfileDTO();
 			Cleaner();
 
 			Succses = "";

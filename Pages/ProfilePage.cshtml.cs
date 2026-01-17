@@ -1,7 +1,7 @@
 using Claswork_ASP_APP.MyClasses;
+using Claswork_ASP_APP.Serves;
 using Copy_Classwork_APS_APP.DAL;
 using Copy_Classwork_APS_APP.DAL.Interfaces;
-using Copy_Classwork_APS_APP.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text;
@@ -10,18 +10,17 @@ namespace Claswork_ASP_APP.Pages
 {
     public class ProfilePageModel : PageModel
     {
-		private ProfileInterface _profileInterface;
 		public string Message { get; set; }
-        public Profile Profile { get; set; }
+        public ProfileDTO Profile { get; set; }
+		private IProfileServis _profileServis;
 
-		public ProfilePageModel(ProfileInterface profileInterface)
+		public ProfilePageModel(IProfileServis profileServis)
 		{
-			_profileInterface = profileInterface;
+			_profileServis = profileServis;
 		}
 		public void OnGet()
         {
-            List<Profile> list = _profileInterface.GetAll();
-			Profile = list.Last();
+			Profile = _profileServis.GetLastProfile();
             if(Profile == null)
             {
 				Message = "You are not registreted";
