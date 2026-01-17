@@ -6,6 +6,7 @@ namespace Claswork_ASP_APP.Serves
 	{
 		public bool SaveAuthor(AuthorBook authorDTO);
 		public bool SaveBook(AuthorBook bookDTO);
+		public string GetError();
 		public List<AuthorBook> GetAllAuthors();
 		public List<AuthorBook> GetAllBooks();
 	}

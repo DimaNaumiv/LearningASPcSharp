@@ -9,6 +9,7 @@ namespace Claswork_ASP_APP.Serves
 	public class BookShopServes : IBookShopServes
 	{
 		public IBookShopRepository _bookShop;
+		private string Error { get; set; }
         public BookShopServes(IBookShopRepository bookShopRepository)
         {
 			_bookShop = bookShopRepository;
@@ -17,12 +18,12 @@ namespace Claswork_ASP_APP.Serves
 		{
 			if (avthorBook.AFirstName_BTitle == "" || avthorBook.AFirstName_BTitle == null)
 			{
-				//Error = "you missed task 1";
+				Error = "you missed task 1";
 				return false;
 			}
 			if (avthorBook.ALastName_BISBN == "" || avthorBook.ALastName_BISBN == null)
 			{
-				//Error = "you missed task 2";
+				Error = "you missed task 2";
 				return false;
 			}
 			else
@@ -31,7 +32,7 @@ namespace Claswork_ASP_APP.Serves
 				{
 					if (avthorBook.ALastName_BISBN.Length < 5)
 					{
-						//Error = "ISBN have smaller than 5 sibols";
+						Error = "ISBN have smaller than 5 sibols";
 						return false;
 					}
 					StringBuilder sb = new StringBuilder();
@@ -41,7 +42,7 @@ namespace Claswork_ASP_APP.Serves
 					}
 					if (sb.ToString() != "978-")
 					{
-						//Error = "wrong inputed ISBN it mast start with 978-";
+						Error = "wrong inputed ISBN it mast start with 978-";
 						return false;
 					}
 				}
@@ -49,19 +50,19 @@ namespace Claswork_ASP_APP.Serves
 			}
 			if (avthorBook.ABirthDate_BPublishedYear == null)
 			{
-				//Error = "you missed task 3";
+				Error = "you missed task 3";
 				return false;
 			}
 			else
 			{
 				if (avthorBook.ABirthDate_BPublishedYear < 1450)
 				{
-					//Error = "you cant input year smaller than 1450";
+					Error = "you cant input year smaller than 1450";
 					return false;
 				}
 				else if (avthorBook.ABirthDate_BPublishedYear > 2026)
 				{
-					//Error = "you cant input year bigger than 2026";
+					Error = "you cant input year bigger than 2026";
 					return false;
 
 				}
@@ -70,7 +71,7 @@ namespace Claswork_ASP_APP.Serves
 			{
 				if (avthorBook.BPrice < 0)
 				{
-					//Error = "Your book cant cost smaller than 0";
+					Error = "Your book cant cost smaller than 0";
 					return false;
 				}
 			}
@@ -131,6 +132,10 @@ namespace Claswork_ASP_APP.Serves
 				books.Add(MapToAvtorBook(null, book));
 			}
 			return books;
+		}
+		public string GetError()
+		{
+			return Error;
 		}
 
 		public bool SaveAuthor(AuthorBook authorDTO)

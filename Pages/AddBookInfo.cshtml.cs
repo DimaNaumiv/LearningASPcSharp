@@ -54,7 +54,9 @@ namespace Claswork_ASP_APP.Pages
             {
                 if (_bookServes.SaveAuthor(avthorBook) == false)
                 {
-                    return;
+					Error = _bookServes.GetError();
+					SetQuestion();
+					return;
                 }
                 SetQuestion();
 				Error = "Succses";
@@ -62,7 +64,9 @@ namespace Claswork_ASP_APP.Pages
             }
             if (_bookServes.SaveBook(avthorBook) == false)
             {
-                return;
+				Error = _bookServes.GetError();
+				SetQuestion();
+				return;
             }
             SetQuestion();
             Error = "Succses";
