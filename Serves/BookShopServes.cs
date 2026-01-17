@@ -149,7 +149,7 @@ namespace Claswork_ASP_APP.Serves
 			{
 				return false;
 			}
-			_bookShop.AddAuthor(MapToAvtor(bookDTO));
+			_bookShop.AddBook(MapToBook(bookDTO));
 			return true;
 		}
 	}
