@@ -41,11 +41,11 @@
 				foreach (var i in Model.avtorBook)
 				{
 					<div style="background-color:blue;justify-items:center;align-content:center;width:300px;height:300px;margin-bottom:25px">
-						<h3 style="color:white">@i.AFirstName_BTitle</h3>
-						<h3 style="color:white">@i.ALastName_BISBN</h3>
-						<h3 style="color:white">@i.ABirthDate_BPublishedYear</h3>
-						<h3 style="color:white">@i.BPrice</h3>
-						<h3 style="color:white">@i.AId</h3>
+						<h3 style="color:white">Title: @i.AFirstName_BTitle</h3>
+						<h3 style="color:white">ISBN: @i.ALastName_BISBN</h3>
+						<h3 style="color:white">Published: @i.ABirthDate_BPublishedYear year</h3>
+						<h3 style="color:white">Price: @i.BPrice $</h3>
+						<h3 style="color:white">Avtor: @i.AId</h3>
 					</div>
 				}
 			}
@@ -54,9 +54,9 @@
 				foreach (var i in Model.avtorBook)
 				{
 					<div style="background-color:red;justify-items:center;align-content:center;width:300px;height:300px;margin-bottom:25px">
-						<h3 style="color:white">@i.AFirstName_BTitle</h3>
-						<h3 style="color:white">@i.ALastName_BISBN</h3>
-						<h3 style="color:white">@i.ABirthDate_BPublishedYear</h3>
+						<h3 style="color:white">First name: @i.AFirstName_BTitle</h3>
+						<h3 style="color:white">Last name: @i.ALastName_BISBN</h3>
+						<h3 style="color:white">Birth year :@i.ABirthDate_BPublishedYear year</h3>
 					</div>
 				}
 			}

@@ -15,7 +15,7 @@ namespace Claswork_ASP_APP.Pages
         public string Title { get; set; }
 		[BindProperty]
 		public string Input_text { get; set; }
-		private IBookShopServes _bookServes;
+		public IBookShopServes _bookServes;
 		public List<AuthorBook> avtorBook { get; set; }
         public GetInfoOfBookModel(IBookShopServes bookShopServes)
         {
