@@ -8,7 +8,7 @@ namespace Claswork_ASP_APP.Serves
 {
 	public class BookShopServes : IBookShopServes
 	{
-		public IBookShopRepository _bookShop;
+		private IBookShopRepository _bookShop;
 		private string Error { get; set; }
         public BookShopServes(IBookShopRepository bookShopRepository)
         {
@@ -79,11 +79,17 @@ namespace Claswork_ASP_APP.Serves
 		}
 		private Author MapToAvtor(AuthorBook authorBook)
 		{
+			List<Book> aBooks = new List<Book>();
+			foreach(var i in authorBook.books)
+			{
+				aBooks.Add(MapToBook(i));
+			}
 			return new Author
 			{
 				FirstName = authorBook.AFirstName_BTitle,
 				LastName = authorBook.ALastName_BISBN,
-				BirthDate = authorBook.ABirthDate_BPublishedYear
+				BirthDate = authorBook.ABirthDate_BPublishedYear,
+				books = aBooks
 			};
 		}
 		private Book MapToBook(AuthorBook authorBook)
@@ -102,9 +108,24 @@ namespace Claswork_ASP_APP.Serves
 			AuthorBook authorBook = new AuthorBook();
 			if (author != null)
 			{
+				List<AuthorBook> aBooks = new List<AuthorBook>();
+				if (author.books == null)
+				{
+					aBooks = null;
+				}
+				else
+				{
+					foreach (var i in author.books)
+					{
+						aBooks.Add(MapToAvtorBook(null, i));
+					}
+				}
+
 				authorBook.AFirstName_BTitle = author.FirstName;
 				authorBook.ALastName_BISBN = author.LastName;
 				authorBook.ABirthDate_BPublishedYear = author.BirthDate;
+				authorBook.AId = author.Id;
+				authorBook.books = aBooks;
 				return authorBook;
 			}
 			authorBook.AFirstName_BTitle = book.Title;
@@ -112,8 +133,10 @@ namespace Claswork_ASP_APP.Serves
 			authorBook.ABirthDate_BPublishedYear = book.PublisherYear;
 			authorBook.BPrice = book.Price;
 			authorBook.AId = book.authorId;
+			authorBook.BId = book.Id;
 			return authorBook;
 		}
+
 		public List<AuthorBook> GetAllAuthors()
 		{
 			List<AuthorBook> authors = new List<AuthorBook>();
@@ -123,7 +146,6 @@ namespace Claswork_ASP_APP.Serves
 			}
 			return authors;
 		}
-
 		public List<AuthorBook> GetAllBooks()
 		{
 			List<AuthorBook> books = new List<AuthorBook>();
@@ -137,7 +159,6 @@ namespace Claswork_ASP_APP.Serves
 		{
 			return Error;
 		}
-
 		public bool SaveAuthor(AuthorBook authorDTO)
 		{
 			if (ErrorChacher(authorDTO,'a') == false)
@@ -147,7 +168,6 @@ namespace Claswork_ASP_APP.Serves
 			_bookShop.AddAuthor(MapToAvtor(authorDTO));
 			return true;
 		}
-
 		public bool SaveBook(AuthorBook bookDTO)
 		{
 			if (ErrorChacher(bookDTO,'b') == false)
@@ -157,5 +177,47 @@ namespace Claswork_ASP_APP.Serves
 			_bookShop.AddBook(MapToBook(bookDTO));
 			return true;
 		}
-	}
+
+        public void DalateAuthor(int authorId)
+		{
+			List<Author> authors = _bookShop.GetAllAuthors();
+			if(authors == null)
+			{
+				Error = "We cant find your author";
+			}
+			if(authors.FirstOrDefault(a=>a.Id == authorId).books != null)
+			{
+				Error = "You cant delete avthor if has book or books";
+				return;
+			}
+			_bookShop.DeleteAuthor(authorId);
+		}
+        public void DalateBook(int bookID)
+		{
+			_bookShop.DeleteBook(bookID);
+		}
+        public void ChangeAuthorInfo(AuthorBook authorDTO)
+		{
+            if (ErrorChacher(authorDTO, 'a') == false)
+            {
+                return;
+            }
+			if(authorDTO == null)
+			{
+				Error = "We cant find author";
+				return;
+			}
+			_bookShop.DeleteAuthor(authorDTO.AId);
+			_bookShop.AddAuthor(MapToAvtor(authorDTO));
+        }
+        public void ChangeBookInfo(AuthorBook bookDTO)
+		{
+            if (ErrorChacher(bookDTO, 'b') == false)
+            {
+                return;
+            }
+            _bookShop.DeleteBook(bookDTO.BId);
+            _bookShop.AddBook(MapToBook(bookDTO));
+        }
+    }
 }

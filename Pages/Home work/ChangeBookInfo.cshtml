@@ -1,0 +1,29 @@
+﻿@page
+@model Claswork_ASP_APP.Pages.Home_work.ChangeBookInfoModel
+@{
+}
+<div>
+    <form method="post">
+        <h1>@Model.Error</h1>
+        <select asp-for="bookId">
+            @foreach (var i in Model._bookShop.GetAllBooks())
+            {
+                <option value="@i.BId">@i.AFirstName_BTitle</option>
+            }
+        </select>
+        <button type="submit" asp-page-handler="Confirm">Confirm</button>
+        <button type="submit" asp-page-handler="Delete">Delete selected author</button>
+        <div>
+            <h3>Change book title:</h3>
+            <input asp-for="Book.AFirstName_BTitle" placeholder="@Model.Book.AFirstName_BTitle"></input>
+
+            <h3>Change book published year:</h3>
+            <input asp-for="Book.ABirthDate_BPublishedYear" placeholder="@Model.Book.ABirthDate_BPublishedYear"></input>
+
+            <h3>Change book price:</h3>
+            <input asp-for="Book.BPrice" placeholder="@Model.Book.ABirthDate_BPublishedYear"></input>
+
+        </div>
+        <button type="submit" asp-page-handler="Change">Change</button>
+    </form>
+</div>

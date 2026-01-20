@@ -1,0 +1,46 @@
+﻿@page
+@model Claswork_ASP_APP.Pages.Home_work.AuthorInfoModel
+@{
+}
+<div>
+	<form method="post">
+		<div>
+			<select asp-for="authorId">
+				@foreach (var i in Model._bookShop.GetAllAuthors())
+				{
+					<option value="@i.AId">@i.AFirstName_BTitle @i.ALastName_BISBN</option>
+				}
+			</select>
+			<button type="submit" asp-page-handler="Confirm">Confirm</button>
+			@if (Model.Author != null)
+			{
+				<h1>Author name: @Model.Author.AFirstName_BTitle @Model.Author.ALastName_BISBN</h1>
+				<h2>Author birth year: @Model.Author.ABirthDate_BPublishedYear</h2>
+				<div>
+					<h2>his books:</h2>
+					<div>
+						@if (Model.Author.books == null)
+						{
+							<h1>No books for this author</h1>
+						}
+						else
+						{
+							foreach (var i in Model.Author.books)
+							{
+								<div>
+									<h3>@i.AFirstName_BTitle</h3>
+									<h3>@i.ABirthDate_BPublishedYear</h3>
+									<h3>@i.BPrice</h3>
+								</div>
+							}
+						}
+					</div>
+				</div>
+			}
+			else
+			{
+				<p>Select author and press confirm</p>
+			}
+		</div>
+	</form>
+</div>
