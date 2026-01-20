@@ -144,5 +144,9 @@ namespace Claswork_ASP_APP.Serves
 			var profile = _profileInterface.GetAll().FirstOrDefault();
 			return MapToDto(profile);
 		}
+		public ProfileDTO GetById(int ID)
+		{
+			return MapToDto(_profileInterface.GetProfileById(ID));
+		}
 	}
 }

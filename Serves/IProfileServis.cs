@@ -8,5 +8,6 @@ namespace Claswork_ASP_APP.Serves
 		List<ProfileDTO> GetAll();
 		ProfileDTO GetLastProfile();
 		ProfileDTO GetFirstProfile();
+		ProfileDTO GetById(int Id);
 	}
 }

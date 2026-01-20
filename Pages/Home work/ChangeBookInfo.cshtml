@@ -12,7 +12,7 @@
             }
         </select>
         <button type="submit" asp-page-handler="Confirm">Confirm</button>
-        <button type="submit" asp-page-handler="Delete">Delete selected author</button>
+        <button type="submit" asp-page-handler="Delete" asp-page="/Home work/GetInfoOfBook">Delete selected book</button>
         <div>
             <h3>Change book title:</h3>
             <input asp-for="Book.AFirstName_BTitle" placeholder="@Model.Book.AFirstName_BTitle"></input>
@@ -23,6 +23,12 @@
             <h3>Change book price:</h3>
             <input asp-for="Book.BPrice" placeholder="@Model.Book.ABirthDate_BPublishedYear"></input>
 
+            <select asp-for="Book.AId">
+                @foreach (var i in Model._bookShop.GetAllAuthors())
+                {
+                    <option value="@i.AId">@i.AFirstName_BTitle @i.ALastName_BISBN</option>
+                }
+            </select>
         </div>
         <button type="submit" asp-page-handler="Change">Change</button>
     </form>

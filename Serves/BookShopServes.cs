@@ -79,17 +79,17 @@ namespace Claswork_ASP_APP.Serves
 		}
 		private Author MapToAvtor(AuthorBook authorBook)
 		{
-			List<Book> aBooks = new List<Book>();
-			foreach(var i in authorBook.books)
-			{
-				aBooks.Add(MapToBook(i));
-			}
+			//List<Book> aBooks = new List<Book>();
+			//foreach(var i in authorBook.books)
+			//{
+			//	aBooks.Add(MapToBook(i));
+			//}
 			return new Author
 			{
 				FirstName = authorBook.AFirstName_BTitle,
 				LastName = authorBook.ALastName_BISBN,
 				BirthDate = authorBook.ABirthDate_BPublishedYear,
-				books = aBooks
+				//books = aBooks
 			};
 		}
 		private Book MapToBook(AuthorBook authorBook)
@@ -108,24 +108,31 @@ namespace Claswork_ASP_APP.Serves
 			AuthorBook authorBook = new AuthorBook();
 			if (author != null)
 			{
-				List<AuthorBook> aBooks = new List<AuthorBook>();
-				if (author.books == null)
-				{
-					aBooks = null;
-				}
-				else
-				{
-					foreach (var i in author.books)
-					{
-						aBooks.Add(MapToAvtorBook(null, i));
-					}
-				}
+				//List<AuthorBook> aBooks = new List<AuthorBook>();
+				//if (author.books == null)
+				//{
+				//	aBooks = null;
+				//}
+				//else
+				//{
+				//	foreach (var i in author.books)
+				//	{
+				//		aBooks.Add(new AuthorBook { 
+				//			AFirstName_BTitle = i.Title,
+				//			ALastName_BISBN = i.ISBN,
+				//			ABirthDate_BPublishedYear = i.PublisherYear,
+				//			BPrice = i.Price,
+				//			AId = i.authorId,
+				//			BId = i.Id,
+				//		});
+				//	}
+				//}
 
 				authorBook.AFirstName_BTitle = author.FirstName;
 				authorBook.ALastName_BISBN = author.LastName;
 				authorBook.ABirthDate_BPublishedYear = author.BirthDate;
 				authorBook.AId = author.Id;
-				authorBook.books = aBooks;
+				//authorBook.books = aBooks;
 				return authorBook;
 			}
 			authorBook.AFirstName_BTitle = book.Title;
@@ -155,6 +162,15 @@ namespace Claswork_ASP_APP.Serves
 			}
 			return books;
 		}
+		public List<AuthorBook> GetAllBooksByAuthorId(int authorId)
+		{
+			List<AuthorBook> books = new List<AuthorBook>();
+			foreach(var i in _bookShop.GetBooksByAuthorId(authorId))
+			{
+				books.Add(MapToAvtorBook(null,i));
+			}
+			return books;
+		}
 		public string GetError()
 		{
 			return Error;
@@ -180,12 +196,14 @@ namespace Claswork_ASP_APP.Serves
 
         public void DalateAuthor(int authorId)
 		{
-			List<Author> authors = _bookShop.GetAllAuthors();
-			if(authors == null)
+			if(_bookShop.GetAllAuthors().FirstOrDefault(a=>a.Id == authorId) == null)
 			{
 				Error = "We cant find your author";
+					return;
 			}
-			if(authors.FirstOrDefault(a=>a.Id == authorId).books != null)
+			List<AuthorBook> books = GetAllBooksByAuthorId(authorId);
+
+            if (books.Count != 0)
 			{
 				Error = "You cant delete avthor if has book or books";
 				return;

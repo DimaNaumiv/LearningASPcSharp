@@ -1,6 +1,6 @@
 ﻿namespace Claswork_ASP_APP.MyClasses
 {
-	public class AuthorBook: AuthorEdition
+	public class AuthorBook
 	{
 		public string AFirstName_BTitle { get; set; }
 		public string ALastName_BISBN { get; set; }

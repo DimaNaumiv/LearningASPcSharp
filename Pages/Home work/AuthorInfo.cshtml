@@ -19,15 +19,15 @@
 				<div>
 					<h2>his books:</h2>
 					<div>
-						@if (Model.Author.books == null)
+						@if (Model.books == null || Model.books.Count == 0)
 						{
 							<h1>No books for this author</h1>
 						}
 						else
 						{
-							foreach (var i in Model.Author.books)
+							foreach (var i in Model.books)
 							{
-								<div>
+								<div style="justify-items:center; align-content:center;width:200px;height:200px;background-color:blue;margin-bottom:15px">
 									<h3>@i.AFirstName_BTitle</h3>
 									<h3>@i.ABirthDate_BPublishedYear</h3>
 									<h3>@i.BPrice</h3>

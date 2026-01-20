@@ -111,7 +111,7 @@ namespace Claswork_ASP_APP.Pages
         {
             window_type = "Book";
             Title = "Books";
-            avtorBook = new List<AuthorBook>();
+            avtorBook = _bookServes.GetAllBooks();
 			setAvtorBook();
         }
     }

@@ -156,9 +156,10 @@ namespace Claswork_ASP_APP.Pages
 			ErrorChecher();
 		}
 
-        public void OnGet()
+        public void OnGet(int? id)
         {
             Profile = new ProfileDTO();
+
 			Cleaner();
 
 			Succses = "";

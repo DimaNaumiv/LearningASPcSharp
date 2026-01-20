@@ -40,6 +40,7 @@ namespace Claswork_ASP_APP.Pages.Home_work
             bookForUpdate.BPrice = Book.BPrice;
             bookForUpdate.AFirstName_BTitle = Book.AFirstName_BTitle;
             bookForUpdate.ABirthDate_BPublishedYear = Book.ABirthDate_BPublishedYear;
+            bookForUpdate.AId = Book.AId;
             _bookShop.ChangeBookInfo(bookForUpdate);
             Error = _bookShop.GetError();
             if(Error == "" || Error == null)

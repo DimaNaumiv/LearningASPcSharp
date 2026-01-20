@@ -1,4 +1,5 @@
 ﻿using Claswork_ASP_APP.MyClasses;
+using Copy_Classwork_APS_APP.DAL.Models;
 
 namespace Claswork_ASP_APP.Serves
 {
@@ -15,5 +16,6 @@ namespace Claswork_ASP_APP.Serves
         public string GetError();
 		public List<AuthorBook> GetAllAuthors();
 		public List<AuthorBook> GetAllBooks();
+		public List<AuthorBook> GetAllBooksByAuthorId(int authorId);
 	}
 }

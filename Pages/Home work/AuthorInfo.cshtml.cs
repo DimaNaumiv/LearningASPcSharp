@@ -7,8 +7,12 @@ namespace Claswork_ASP_APP.Pages.Home_work
 {
     public class AuthorInfoModel : PageModel
     {
+        [BindProperty]
         public int authorId { get; set; }
+        [BindProperty]
         public AuthorBook Author { get; set; }
+        [BindProperty]
+        public List<AuthorBook> books { get; set; }
         public IBookShopServes _bookShop { get; set; }
         public AuthorInfoModel(IBookShopServes bookShop)
         {
@@ -16,18 +20,26 @@ namespace Claswork_ASP_APP.Pages.Home_work
             if(Author == null)
             {
                 Author = _bookShop.GetAllAuthors().First();
+                books = _bookShop.GetAllBooksByAuthorId(Author.AId);
             }
             Author = Author;
         }
         public void OnPostConfirm()
         {
             Author = _bookShop.GetAllAuthors().FirstOrDefault(a => a.AId == authorId);
-            OnGet();
-        }
-
-		public void OnGet()
-        {
-			Author = Author;
+			books = _bookShop.GetAllBooksByAuthorId(Author.AId);
 		}
+
+		public void OnGet(int? id)
+        {
+			if(id == null)
+            {
+                Author = _bookShop.GetAllAuthors().First();
+                books = _bookShop.GetAllBooksByAuthorId(Author.AId);
+                return;
+            }
+            Author = _bookShop.GetAllAuthors().FirstOrDefault(a=>a.AId == id);
+            books = _bookShop.GetAllBooksByAuthorId(id.Value);
+        }
     }
 }
